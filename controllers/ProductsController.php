@@ -10,7 +10,12 @@ class ProductsController extends Controller {
     }
 
     public function index() {
-        echo 1;
+        if(!$_SESSION['user']) {
+            header("Location: /");
+        }
+        //$this->pageData['products'] = $this->model->getAllProducts();
+        $this->pageData['title'] = "Товары";
+        $this->view->render($this->pageTpl, $this->pageData);
     }
 
 }
