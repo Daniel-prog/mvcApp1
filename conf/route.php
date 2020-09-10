@@ -5,28 +5,32 @@ class Routing {
 
     public static function buildRoute() {
 
+        /* Контроллер и action по умолчанию */
         $controllerName = "IndexController";
         $modelName = "IndexModel";
         $action = "index";
 
-        $route = explode("/", $_SERVER['REQUEST_URI']);
+        $route = explode("/", parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
-        //Если существует контроллер
-        if ($route[1] != '') {
+        $i = count($route)-1;
 
-            $controllerName = ucfirst($route[1] . "Controller");
-            $modelName = ucfirst($route[1] . "Model");
-
+        while($i>0) {
+            if($route[$i] != '') {
+                if(is_file(CONTROLLER_PATH . ucfirst($route[$i]) . "Controller.php") || !empty($_GET)) {
+                    $controllerName = ucfirst($route[$i]) . "Controller";
+                    $modelName =  ucfirst($route[$i]) . "Model";
+                    break;
+                } else {
+                    $action = $route[$i];
+                }
+            }
+            $i--;
         }
 
-        include CONTROLLER_PATH . $controllerName . ".php";
-        include MODEL_PATH . $modelName . ".php";
+        require_once CONTROLLER_PATH . $controllerName . ".php";
+        require_once MODEL_PATH . $modelName . ".php";
 
-        if (isset($route[2]) && $route[2] != '') {
-            $action = $route[2];
-        }
-
-        $controller = new $controllerName;
+        $controller = new $controllerName();
         $controller->$action();
     }
 
