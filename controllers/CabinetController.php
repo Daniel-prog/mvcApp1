@@ -10,7 +10,12 @@ class CabinetController extends Controller {
     }
 
     public function index() {
-        $this->pageData['title'] = "Кабинет";
+
+        if (!$_SESSION['user']) {
+            header("Location: /");
+        }
+
+        $this->pageData['title'] = "Личный кабинет администратора";
 
         $ordersCount = $this->model->getOrdersCount();
         $this->pageData['ordersCount'] = $ordersCount;
@@ -21,7 +26,15 @@ class CabinetController extends Controller {
         $usersCount = $this->model->getUsersCount();
         $this->pageData['usersCount'] = $usersCount;
 
+        $orders = $this->model->getOrders();
+        $this->pageData['orders'] = $orders;
+
         $this->view->render($this->pageTpl, $this->pageData);
+    }
+
+    public function logout() {
+        session_destroy();
+        header("Location: /");
     }
 
 }
