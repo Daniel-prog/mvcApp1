@@ -13,9 +13,32 @@ class ProductsController extends Controller {
         if(!$_SESSION['user']) {
             header("Location: /");
         }
-        //$this->pageData['products'] = $this->model->getAllProducts();
+        $this->pageData['products'] = $this->model->getAllProducts();
         $this->pageData['title'] = "Товары";
         $this->view->render($this->pageTpl, $this->pageData);
+
+        if ($_FILES) {
+            if ($_FILES['csv']['type'] != 'text/csv' &&  $_FILES['csv']['type'] != 'application/vnd.ms-excel'
+                    || $_FILES['csv']['type'] == '') {
+                $this->pageData['errors'] = "Ошибка! Возможно данный файл имеет некорректный формат.";
+            } else {
+                if (move_uploaded_file($_FILES['csv']['tmp_name'], UPLOAD_DIR . $_FILES['csv']['name'])) {
+                    $file = fopen(UPLOAD_DIR . $_FILES['csv']['name'], 'r');
+                    $row = 1;
+                    while ($data = fgetcsv($file, 200, ';')) {
+                        if ($row == 1) {
+                            $row++;
+                            continue;
+                        } else {
+                            $this->model->addFromCSV($data);
+                        }
+
+                    }
+                    fclose($file);
+                    $this->model->getAllProducts();
+                }
+            }
+        }
     }
 
 }

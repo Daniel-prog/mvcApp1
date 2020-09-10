@@ -17,11 +17,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-    <style>
-        .text-xs {
-            font-size: 15px;
-        }
-    </style>
+
 </head>
 
 <body id="page-top">
@@ -291,7 +287,7 @@
                                             <table class="table table-bordered table-hover table-striped">
                                                 <thead>
                                                 <tr>
-                                                    <th>id товара</th>
+                                                    <th>ID товара</th>
                                                     <th>Наименование товара</th>
                                                     <th>Цена</th>
                                                 </tr>
