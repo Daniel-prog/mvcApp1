@@ -22,7 +22,6 @@ class ProductsModel extends Model {
         $nameExists->execute();
 
         if (!$nameExists->fetch(PDO::FETCH_NUM)[0]) {
-            echo 1;
             $sql = 'INSERT INTO products(name, price) VALUES(:name, :price)';
 
             $stmt = $this->db->prepare($sql);
