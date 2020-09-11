@@ -1,5 +1,3 @@
-<!--<pre>--><?// print_r($pageData['orders']); ?><!--</pre>-->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
 
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewp ort" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -320,18 +318,7 @@
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Пользователей:</div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800"><?=$pageData['usersCount']; ?></div>
-<!--                      <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tasks</div>-->
-<!--                      <div class="row no-gutters align-items-center">-->
-<!--                        <div class="col-auto">-->
-<!--                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>-->
-<!--                        </div>-->
-<!--                        <div class="col">-->
-<!--                          <div class="progress progress-sm mr-2">-->
-<!--                            <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
-                    </div>
+                        </div>
                     <div class="col-auto">
                       <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
                     </div>
@@ -646,11 +633,11 @@
   <script src="../assets/js/sb-admin-2.min.js"></script>
 
   <!-- Page level plugins -->
-  <script src="../assets/js/chart.js/Chart.min.js"></script>
+<!--  <script src="../assets/js/chart.js/Chart.min.js"></script>-->
 
   <!-- Page level custom scripts -->
-  <script src="../assets/js/demo/chart-area-demo.js"></script>
-  <script src="../assets/js/demo/chart-pie-demo.js"></script>
+<!--  <script src="../assets/js/demo/chart-area-demo.js"></script>-->
+<!--  <script src="../assets/js/demo/chart-pie-demo.js"></script>-->
 
 </body>
 

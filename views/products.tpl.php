@@ -4,8 +4,9 @@
 <head>
 
     <meta charset="utf-8">
+    <base href="/products/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewp ort" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -17,6 +18,7 @@
 
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
+<!--    <base href="/cabinet/products/">-->
 
 </head>
 
@@ -261,14 +263,13 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid" data-ng-app="products" data-ng-controller="productsController">
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-900">Товары</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
-
 
                 <div class="row">
                     <div class="col-lg-12">
@@ -297,7 +298,7 @@
                                                 foreach ($pageData['products'] as $key => $value) { ?>
                                                     <tr>
                                                         <td><?php echo $value['id']; ?></td>
-                                                        <td><a href="#<?php echo $value['id']; ?>"><?php echo $value['name']; ?></a></td>
+                                                        <td><a data-ng-click="getInfoByProductId(<?php echo $value['id']; ?>)" href="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></a></td>
                                                         <td><?php echo $value['price']; ?></td>
                                                     </tr>
                                                 <?php } ?>
@@ -377,6 +378,10 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Angular 1.8.0-->
+    <script src="../assets/js/angular.min.js"></script>
+    <script src="../assets/js/angular-route.js"></script>
+
     <!-- Core plugin JavaScript-->
     <script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
 
@@ -384,11 +389,13 @@
     <script src="../assets/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="../assets/js/chart.js/Chart.min.js"></script>
+<!--    <script src="../assets/js/chart.js/Chart.min.js"></script>-->
 
     <!-- Page level custom scripts -->
-    <script src="../assets/js/demo/chart-area-demo.js"></script>
-    <script src="../assets/js/demo/chart-pie-demo.js"></script>
+<!--    <script src="../assets/js/demo/chart-area-demo.js"></script>-->
+<!--    <script src="../assets/js/demo/chart-pie-demo.js"></script>-->
+
+    <script src="../assets/js/admin/app.js"></script>
 
 </body>
 

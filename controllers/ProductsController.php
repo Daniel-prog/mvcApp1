@@ -41,6 +41,22 @@ class ProductsController extends Controller {
         $this->pageData['title'] = "Товары";
         $this->pageData['products'] = $this->model->getAllProducts();
         $this->view->render($this->pageTpl, $this->pageData);
+
+    }
+
+    public function getProduct() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+
+        if(!isset($_GET['id'])) {
+            echo json_encode(array("success" => false));
+        } else {
+            $productId = $_GET['id'];
+            $productInfo = json_encode($this->model->getProductById($productId));
+            echo $productInfo;
+        }
     }
 
 }
