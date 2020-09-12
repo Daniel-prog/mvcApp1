@@ -20,6 +20,7 @@ class IndexModel extends Model {
 
         if(!empty($res)) {
             $_SESSION['user'] = $login;
+            $_SESSION['userId'] = $res['id'];
             header("Location: /cabinet");
         } else {
             return false;

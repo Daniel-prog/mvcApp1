@@ -6,7 +6,7 @@ app.config(function($routeProvider, $locationProvider){
         });
 
     $locationProvider.html5Mode(true);
-})
+});
 
 app.controller('productsController', function($scope, $http, $window) {
 
@@ -20,7 +20,7 @@ app.controller('productsController', function($scope, $http, $window) {
             $scope.productName = result.data.name;
             $scope.productPrice = result.data.price;
         })
-    }
+    };
 
     $scope.saveProduct = function() {
         // TODO: Домашнее задание - добавить валидацию данных, реализовать удаление товара
@@ -39,7 +39,7 @@ app.controller('productsController', function($scope, $http, $window) {
             }
         })
 
-    }
+    };
 
     $scope.addProduct = function() {
         // TODO: добавить валидацию данных
@@ -55,7 +55,7 @@ app.controller('productsController', function($scope, $http, $window) {
             }
         })
 
-    }
+    };
 
     $scope.deleteProduct = function(id) {
 

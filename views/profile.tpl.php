@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="profile">
 
 <head>
 
@@ -18,7 +18,6 @@
 
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-<!--    <base href="/cabinet/products/">-->
 
 </head>
 
@@ -271,132 +270,132 @@
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
 
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- /.panel -->
-                        <div class="card card-header">
-                            <div class="panel-heading">
-                                <i class="far fa-chart-bar fa-2x"></i> <h3 style="display: inline">Товары</h3>
-                            </div>
-
-                            <!-- /.panel-heading -->
-                            <div class="panel-body" data-ng-app="products" data-ng-controller="productsController">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div data-ng-view></div>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-striped">
-                                                <thead>
-                                                <tr>
-                                                    <th>ID товара</th>
-                                                    <th>Наименование товара</th>
-                                                    <th>Цена</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <?php
-                                                foreach ($pageData['products'] as $key => $value) { ?>
-                                                    <tr>
-                                                        <td><?php echo $value['id']; ?></td>
-                                                        <td><a data-ng-click="getInfoByProductId(<?php echo $value['id']; ?>)" href="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></a></td>
-                                                        <td><?php echo $value['price']; ?></td>
-                                                    </tr>
-                                                <?php } ?>
-                                                </tbody>
-                                            </table>
+                <!-- Main Content -->
+                <div id="page-wrapper" data-ng-controller="profileController">
+                    <pre>
+                        <? print_r($_SESSION); ?>
+                    </pre>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2><?php echo $pageData['title']; ?></h2>
+                            <form class="form-horizontal" method="post" data-ng-submit="saveProfileData()">
+                                <input type="hidden" name="userId" id="userId" value="<?php echo $pageData['userInfo']['id']; ?>">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="login" class="col-md-4 control-label">Логин</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control input-md" required="true" type="text" id="login" name="login" value="<?php echo $pageData['userInfo']['login']; ?>">
                                         </div>
-                                        <!-- /.table-responsive -->
                                     </div>
-                                    <!-- /.col-lg-4 (nested) -->
-                                    <!-- /.col-lg-8 (nested) -->
-                                </div>
-                                <!-- /.row -->
-                            </div>
-                            <!-- /.panel-body -->
+
+                                    <div class="form-group">
+                                        <label for="login" class="col-md-4 control-label">Email</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control input-md" required="true" type="email" id="email" name="email" value="<?php echo $pageData['userInfo']['email']; ?>">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <button id="save" name="save" class="btn btn-success">Сохранить</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
                         </div>
-                        <!-- /.panel -->
-                        <!-- /.panel -->
                     </div>
-                    <!-- /.col-lg-8 -->
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Сменить пароль</h2>
+                            <form class="form-horizontal" method="post" data-ng-submit="updatePassword()">
+                                <input type="hidden" name="userId" id="userId" value="<?php echo $pageData['userInfo']['id']; ?>">
+                                <fieldset>
+                                    <div class="form-group">
+                                        <label for="newPass" class="col-md-4 control-label">Новый пароль</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control input-md" data-ng-model="newpass" required="true" type="password" id="newpass" name="newpass" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="repeatPass" class="col-md-4 control-label">Повторите пароль</label>
+                                        <div class="col-md-4">
+                                            <input class="form-control input-md" data-ng-model="repeatpass" required="true" type="password" id="repeatPass" name="repeatPass" value="">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-offset-4 col-md-8">
+                                            <button id="update" name="update" class="btn btn-success">Обновить</button>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="col-lg-12 mt-4">
-                        <h2 class="text-gray-900">Загрузить CSV файл с товарами</h2>
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-                            <input type="file" name="csv">
-                            <button class="btn btn-primary">Загрузить</button>
-                        </form>
-                    </div>
+
+
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
                 </div>
             </div>
-            <!-- /.panel -->
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
-
-        </div>
-        <!-- End of Content Wrapper -->
+        </footer>
+        <!-- End of Footer -->
 
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- End of Content Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
+<!-- End of Page Wrapper -->
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="cabinet/logout">Logout</a>
-                </div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="cabinet/logout">Logout</a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Angular 1.8.0-->
-    <script src="../assets/js/angular.min.js"></script>
-    <script src="../assets/js/angular-route.js"></script>
+<!-- Angular 1.8.0-->
+<script src="../assets/js/angular.min.js"></script>
 
-    <script src="../assets/js/admin/app.js"></script>
+<script src="../assets/js/profile.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../assets/js/sb-admin-2.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="../assets/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-<!--    <script src="../assets/js/chart.js/Chart.min.js"></script>-->
-
-    <!-- Page level custom scripts -->
-<!--    <script src="../assets/js/demo/chart-area-demo.js"></script>-->
-<!--    <script src="../assets/js/demo/chart-pie-demo.js"></script>-->
 
 </body>
 
 </html>
+
