@@ -43,4 +43,42 @@ class ProductsModel extends Model {
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function saveProductInfo($id, $name, $price) {
+        $sql = "UPDATE products
+                SET price = :price, name = :name
+                WHERE id = :id
+                ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":price", $price, PDO::PARAM_INT);
+        $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
+    }
+
+    public function addProduct($productName, $productPrice) {
+        $sql = "INSERT INTO products(name, price)
+                VALUES(:productName, :productPrice)
+                ";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":productName", $productName, PDO::PARAM_STR);
+        $stmt->bindValue(":productPrice", $productPrice, PDO::PARAM_INT);
+        $stmt->execute();
+        return true;
+    }
+
+    public function deleteProduct($id) {
+        $sql = "DELETE FROM products WHERE id = :id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $count = $stmt->rowCount();
+        if($count > 0) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

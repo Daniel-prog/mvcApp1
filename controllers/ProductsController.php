@@ -59,4 +59,63 @@ class ProductsController extends Controller {
         }
     }
 
+    public function saveProduct() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+
+        if(!isset($_POST['id']) || trim($_POST['name']) == '' || trim($_POST['price']) == '') {
+            echo json_encode(array("success" => false));
+        } else {
+            $productId = $_POST['id'];
+            $productName = trim($_POST['name']);
+            $productPrice = trim($_POST['price']);
+
+            if($this->model->saveProductInfo($productId, $productName, $productPrice)) {
+                echo json_encode(array("success" => true));
+            } else {
+                echo json_encode(array("success" => false));
+            }
+        }
+    }
+
+    public function addProduct() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+
+        if(empty($_POST) || trim($_POST['productName']) == '' || trim($_POST['productPrice']) == '') {
+            echo json_encode(array("success" => false));
+        } else {
+            $productName = trim($_POST['productName']);
+            $productPrice = trim($_POST['productPrice']);
+
+            if($this->model->addProduct($productName, $productPrice)) {
+                echo json_encode(array("success" => true));
+            } else {
+                echo json_encode(array("success" => false));
+            }
+        }
+    }
+
+    public function deleteProduct() {
+        if(!$_SESSION['user']) {
+            header("Location: /");
+            return;
+        }
+
+        if(empty($_POST) || !isset($_POST['id'])) {
+            echo json_encode(array("success" => false));
+        } else {
+            $productId = $_POST['id'];
+            if($this->model->deleteProduct($productId)) {
+                echo json_encode(array("success" => true));
+            } else {
+                echo json_encode(array("success" => false));
+            }
+        }
+    }
+
 }

@@ -16,7 +16,7 @@
     <div class="form-group">
         <div class="col-sm-offset-3 col-sm-9">
             <button class="btn btn-default">Сохранить</button>
-            <button class="btn btn-danger">Удалить</button>
+            <button class="btn btn-danger" type="button" data-ng-click="deleteProduct(productId)">Удалить</button>
         </div>
     </div>
 </form>

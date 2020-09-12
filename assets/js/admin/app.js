@@ -1,20 +1,14 @@
-var app = angular.module("products", ["ngRoute"]);
-
+var app = angular.module('products', ["ngRoute"]);
 app.config(function($routeProvider, $locationProvider){
-
     $routeProvider
         .when("/:id", {
-            templateUrl: "/views/product.tpl.php"
+            templateUrl : "/views/product.tpl.php"
         });
 
-
     $locationProvider.html5Mode(true);
+})
 
-});
-
-
-app.controller('productsController', function($scope, $http){
-
+app.controller('productsController', function($scope, $http, $window) {
 
     $scope.getInfoByProductId = function(id) {
         $http({
@@ -26,12 +20,54 @@ app.controller('productsController', function($scope, $http){
             $scope.productName = result.data.name;
             $scope.productPrice = result.data.price;
         })
-    };
-
-    $scope.saveProduct = function() {
-        // TODO: Дома - попробовать реализовать сохранение и удаление
     }
 
+    $scope.saveProduct = function() {
+        // TODO: Домашнее задание - добавить валидацию данных, реализовать удаление товара
+
+        $scope.productName = angular.element("#productName").val();
+        $scope.productPrice = angular.element("#productPrice").val();
+
+        $http({
+            method: "POST",
+            url: "http://mvc/products/saveProduct",
+            data: $.param({id: $scope.productId, name: $scope.productName, price: $scope.productPrice}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result){
+            if(result.data.success) {
+                $window.location.href = '/products/';
+            }
+        })
+
+    }
+
+    $scope.addProduct = function() {
+        // TODO: добавить валидацию данных
+        $http({
+            method: "POST",
+            url: "http://mvc/products/addProduct",
+            data: $.param({productName: $scope.newProductName, productPrice: $scope.newProductPrice}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result){
+            // TODO: написать и вызвать метод получения всех продуктов
+            if(result.data.success) {
+                $window.location.reload();
+            }
+        })
+
+    }
+
+    $scope.deleteProduct = function(id) {
+
+        $http({
+            method: "POST",
+            url: "http://mvc/products/deleteProduct",
+            data: $.param({id: id}),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        }).then(function(result){
+            $window.location.href = '/products/';
+        });
+    }
 
 });
 

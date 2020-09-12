@@ -263,7 +263,7 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid" data-ng-app="products" data-ng-controller="productsController">
+            <div class="container-fluid">
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -378,12 +378,14 @@
     <script src="../assets/js/jquery.min.js"></script>
     <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
+    <!-- Core plugin JavaScript-->
+    <script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
+
     <!-- Angular 1.8.0-->
     <script src="../assets/js/angular.min.js"></script>
     <script src="../assets/js/angular-route.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../assets/js/admin/app.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="../assets/js/sb-admin-2.min.js"></script>
@@ -394,8 +396,6 @@
     <!-- Page level custom scripts -->
 <!--    <script src="../assets/js/demo/chart-area-demo.js"></script>-->
 <!--    <script src="../assets/js/demo/chart-pie-demo.js"></script>-->
-
-    <script src="../assets/js/admin/app.js"></script>
 
 </body>
 
