@@ -22,6 +22,8 @@
           font-size: 15px;
       }
   </style>
+
+
 </head>
 
 <body id="page-top">
@@ -59,7 +61,7 @@
 
         <!-- Nav Item - Users -->
         <li class="nav-item active">
-            <a class="nav-link" href="/cabinet">
+            <a class="nav-link" href="/users">
                 <i class="fas fa-user"></i>
                 <span>Пользователи</span></a>
         </li>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-ng-app="users">
 
 <head>
 
     <meta charset="utf-8">
-    <base href="/products/">
+    <base href="/users/">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -18,8 +18,16 @@
 
     <!-- Custom styles for this template-->
     <link href="../assets/css/sb-admin-2.min.css" rel="stylesheet">
-<!--    <base href="/cabinet/products/">-->
+    <!--    <base href="/cabinet/products/">-->
+
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+
+    <style>
+        table tr:hover {
+            cursor: pointer;
+        }
+    </style>
+
 
 </head>
 
@@ -51,7 +59,7 @@
 
         <!-- Nav Item - Products -->
         <li class="nav-item active">
-            <a class="nav-link" href="/cabinet">
+            <a class="nav-link" href="/products">
                 <i class="fas fa-shopping-bag"></i>
                 <span>Товары</span></a>
         </li>
@@ -264,11 +272,11 @@
             <!-- End of Topbar -->
 
             <!-- Begin Page Content -->
-            <div class="container-fluid">
+            <div class="container-fluid" data-ng-controller="usersController">
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                    <h1 class="h3 mb-0 text-gray-900">Товары</h1>
+                    <h1 class="h1 mb-0 text-gray-900">Пользователи</h1>
                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                 </div>
 
@@ -276,31 +284,32 @@
                     <div class="col-lg-12">
                         <!-- /.panel -->
                         <div class="card card-header">
-                            <div class="panel-heading">
-                                <i class="far fa-chart-bar fa-2x"></i> <h3 style="display: inline">Товары</h3>
+                            <div>
+                                <i class="far fa-chart-bar fa-2x"></i> <h3 style="display: inline">Пользователи</h3>
                             </div>
 
                             <!-- /.panel-heading -->
-                            <div class="panel-body" data-ng-app="products" data-ng-controller="productsController">
+                            <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div data-ng-view></div>
                                         <div class="table-responsive">
-                                            <table class="table table-bordered table-hover table-striped">
+                                            <table class="table table-bordered table-hover table-striped" style="color: black;">
                                                 <thead>
                                                 <tr>
-                                                    <th>ID товара</th>
-                                                    <th>Наименование товара</th>
-                                                    <th>Цена</th>
+                                                    <th>Имя</th>
+                                                    <th>Логин</th>
+                                                    <th>Email</th>
+                                                    <th>Роль</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 <?php
-                                                foreach ($pageData['products'] as $key => $value) { ?>
-                                                    <tr>
-                                                        <td><?php echo $value['id']; ?></td>
-                                                        <td><a data-ng-click="getInfoByProductId(<?php echo $value['id']; ?>)" href="<?php echo $value['id']; ?>"><?php echo $value['name']; ?></a></td>
-                                                        <td><?php echo $value['price']; ?></td>
+                                                foreach ($pageData['usersList'] as $key => $value) { ?>
+                                                    <tr data-ng-click="showEditForm(); getUserData(<?php echo $value['id']; ?>);">
+                                                        <td><?php echo $value['fullName']; ?></td>
+                                                        <td><?php echo $value['login']; ?></td>
+                                                        <td><?php echo $value['email']; ?></td>
+                                                        <td><?php echo $value['role']; ?></td>
                                                     </tr>
                                                 <?php } ?>
                                                 </tbody>
@@ -312,6 +321,7 @@
                                     <!-- /.col-lg-8 (nested) -->
                                 </div>
                                 <!-- /.row -->
+                                <edit-user></edit-user>
                             </div>
                             <!-- /.panel-body -->
                         </div>
@@ -321,83 +331,77 @@
                     <!-- /.col-lg-8 -->
                 </div>
                 <!-- /.row -->
-                <div class="row">
-                    <div class="col-lg-12 mt-4">
-                        <h2 class="text-gray-900">Загрузить CSV файл с товарами</h2>
-                        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-                            <input type="file" name="csv">
-                            <button class="btn btn-primary">Загрузить</button>
-                        </form>
-                    </div>
-                </div>
+
             </div>
             <!-- /.panel -->
-            </div>
-            <!-- End of Main Content -->
-
-            <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
-            <!-- End of Footer -->
 
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Your Website 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
 
     </div>
-    <!-- End of Page Wrapper -->
+    <!-- End of Content Wrapper -->
 
-    <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
-        <i class="fas fa-angle-up"></i>
-    </a>
+</div>
+<!-- End of Page Wrapper -->
 
-    <!-- Logout Modal-->
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="cabinet/logout">Logout</a>
-                </div>
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary" href="cabinet/logout">Logout</a>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="../assets/js/jquery.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap core JavaScript-->
+<script src="../assets/js/jquery.min.js"></script>
+<script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
+<!-- Core plugin JavaScript-->
+<script src="../assets/js/jquery-easing/jquery.easing.min.js"></script>
 
-    <!-- Angular 1.8.0-->
-    <script src="../assets/js/angular.min.js"></script>
-    <script src="../assets/js/angular-route.js"></script>
+<!-- Angular 1.8.0-->
+<script src="../assets/js/angular.min.js"></script>
+<script src="../assets/js/angular-route.js"></script>
 
-    <script src="../assets/js/admin/app.js"></script>
+<script src="../assets/js/users.js"></script>
 
-    <!-- Custom scripts for all pages-->
-    <script src="../assets/js/sb-admin-2.min.js"></script>
+<!-- Custom scripts for all pages-->
+<script src="../assets/js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
+<!-- Page level plugins -->
 <!--    <script src="../assets/js/chart.js/Chart.min.js"></script>-->
 
-    <!-- Page level custom scripts -->
+<!-- Page level custom scripts -->
 <!--    <script src="../assets/js/demo/chart-area-demo.js"></script>-->
 <!--    <script src="../assets/js/demo/chart-pie-demo.js"></script>-->
 
 </body>
 
 </html>
+
