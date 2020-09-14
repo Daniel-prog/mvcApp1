@@ -1,4 +1,4 @@
-<form method="post" class="form-horizontal" data-ng-show="isShowEditForm">
+<form method="post" class="form-horizontal" data-ng-show="isShowEditForm" data-ng-submit="updateUserData()">
     <input type="hidden" data-ng-model="userId">
 
     <fieldset>
@@ -30,7 +30,7 @@
         <div class="from-group">
             <div class="col-md-4 col-md-offset-4">
                 <button class="btn btn-success">Сохранить</button>
-                <button class="btn btn-danger">Удалить</button>
+                <button class="btn btn-danger" type="button" data-ng-click="deleteUser(userId)">Удалить</button>
             </div>
         </div>
     </fieldset>

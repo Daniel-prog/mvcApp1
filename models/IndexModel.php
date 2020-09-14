@@ -19,8 +19,9 @@ class IndexModel extends Model {
 
 
         if(!empty($res)) {
-            $_SESSION['user'] = $login;
+            $_SESSION['user'] = $_POST['login'];
             $_SESSION['userId'] = $res['id'];
+            $_SESSION['role_id'] = $res['role_id'];
             header("Location: /cabinet");
         } else {
             return false;

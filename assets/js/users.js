@@ -1,6 +1,6 @@
 var users = angular.module('users', []);
 
-users.controller("usersController", function($scope, $http){
+users.controller("usersController", function($scope, $http, $window){
 
     $scope.getUserData = function(userId) {
         $http({
@@ -23,7 +23,6 @@ users.controller("usersController", function($scope, $http){
                     break;
                 }
             }
-            console.log($scope);
         })
     }
 
@@ -43,15 +42,16 @@ users.controller("usersController", function($scope, $http){
     $scope.getRoles();
 
     $scope.updateUserData = function() {
+        console.log($scope.email);
         $http({
             method: "POST",
             url: "http://mvc/users/updateUserData",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-            data: $.param({id: $scope.userId, fullName: $scope.userFullName, login: $scope.userLogin, email: $scope.userEmail, role: $scope.newRole})
-        }).then(function(result){
-            //TODO: вывести результат
+            data: $.param({id: $scope.userId, fullName: $scope.userFullName, login: $scope.userLogin, role: $scope.userSelRole.id, email: $scope.userEmail})
+        }).then(function(result) {
+            $window.location.href = '/users';
             console.log(result);
-        });
+        })
     }
 
     $scope.deleteUser = function(userId) {
@@ -61,7 +61,7 @@ users.controller("usersController", function($scope, $http){
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: $.param({id: userId})
         }).then(function(result){
-            //TODO: вывести результат
+            $window.location.href = '/users';
             console.log(result);
         });
     }

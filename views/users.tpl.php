@@ -273,6 +273,7 @@
 
             <!-- Begin Page Content -->
             <div class="container-fluid" data-ng-controller="usersController">
+                <?php if($pageData['permission'] == 1) { ?>
 
                 <!-- Page Heading -->
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -322,6 +323,7 @@
                                 </div>
                                 <!-- /.row -->
                                 <edit-user></edit-user>
+
                             </div>
                             <!-- /.panel-body -->
                         </div>
@@ -331,9 +333,65 @@
                     <!-- /.col-lg-8 -->
                 </div>
                 <!-- /.row -->
-
             </div>
             <!-- /.panel -->
+            <div class="container-fluid mt-4">
+                <div class="row">
+                    <div class="col-lg-12 pb-3 pl-4">
+                        <h1 class="page-header">Добавить нового пользователя</h1>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <form class="form-horizontal" method="post" data-ng-submit="addNewUser()">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newUser">ФИО</label>
+                                    <div class="col-md-5">
+                                        <input id="newUser" name="newUser" data-ng-model="newUser" class="form-control input-md" required="true" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newLogin">Логин</label>
+                                    <div class="col-md-5">
+                                        <input id="newLogin" name="newLogin" data-ng-model="newLogin" class="form-control " required="true" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newEmail">Email</label>
+                                    <div class="col-md-5">
+                                        <input id="newEmail" name="newEmail" data-ng-model="newEmail" class="form-control input-md" required="true" type="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newPassword">Пароль</label>
+                                    <div class="col-md-5">
+                                        <input id="newPassword" name="newPassword" data-ng-model="newPassword" class="form-control input-md" required="true" type="password">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-4 control-label" for="newRole">Роль</label>
+                                    <div class="col-md-5">
+                                        <select name="newRole" data-ng-model="newRole" class="form-control">
+                                            <option value="">Выберите роль</option>
+                                            <option value="1">Администратор</option>
+                                            <option value="2">Менеджер</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-4 col-md-offset-4">
+                                        <button class="btn btn-success">Сохранить</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <?php } else { ?>
+                <h1 style="margin:0; padding-top:10px;">У вас недостаточно прав для работы с пользователями</h1>
+            <?php } ?>
 
         </div>
         <!-- End of Main Content -->

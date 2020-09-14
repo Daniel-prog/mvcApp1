@@ -43,11 +43,11 @@ class UsersModel extends Model {
         return $result;
     }
 
-    public function updateUserInfo($userId, $userFullName, $userLogin, $userEmail, $userRole) {
+    public function updateUserData($userId, $userFullName, $userLogin, $userEmail, $userRole) {
         $sql = "UPDATE users
-                SET login = :login, fullName = :fullName, email = :email, role_id = :roleId
-                WHERE id = :id    
-                ";
+				SET login =:login, fullName = :fullName, email = :email, role_id = :roleId
+				WHERE id =:id
+				";
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":login", $userLogin, PDO::PARAM_STR);
         $stmt->bindValue(":fullName", $userFullName, PDO::PARAM_STR);
@@ -55,7 +55,7 @@ class UsersModel extends Model {
         $stmt->bindValue(":roleId", $userRole, PDO::PARAM_INT);
         $stmt->bindValue(":id", $userId, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
+        return true; // TODO
     }
 
     public function addNewUser($userLogin, $userFullName, $userEmail, $userPassword, $userRole) {
@@ -69,7 +69,7 @@ class UsersModel extends Model {
         $stmt->bindValue(":password", $userPassword, PDO::PARAM_STR);
         $stmt->bindValue(":role_id", $userRole, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
+        return true; // TODO
     }
 
     public function deleteUser($id) {
@@ -77,7 +77,7 @@ class UsersModel extends Model {
         $stmt = $this->db->prepare($sql);
         $stmt->bindValue(":id", $id, PDO::PARAM_INT);
         $stmt->execute();
-        return true;
+        return true; // TODO
     }
 
 

@@ -30,9 +30,7 @@ class UsersController extends Controller {
         if(!$_SESSION['user']) {
             header("Location: /");
         }
-
         $this->pageData['permission'] = $_SESSION['role_id'];
-
         $this->pageData['title'] = "Пользователи";
         $this->pageData['usersList'] = $this->model->getUsers();
         $this->view->render($this->pageTpl, $this->pageData);
@@ -71,7 +69,6 @@ class UsersController extends Controller {
     }
 
     public function updateUserData() {
-
         if(!$_SESSION['user']) {
             header("Location: /");
         }
@@ -82,15 +79,16 @@ class UsersController extends Controller {
             $userLogin = $_POST['login'];
             $userEmail = $_POST['email'];
             $userRole = $_POST['role'];
-            if($this->model->updateUserInfo($userId, $userFullName, $userLogin, $userEmail, $userRole)) {
-                echo json_encode(array("success" => true, "text" => "Данные пользователя сохранены"));
-            } else {
-                echo json_encode(array("success" => false, "text" => "Ошибка сохранения данных"));
-            }
-        } else {
-            echo json_encode(array("success" => false, "text" => "Заполните все данные"));
-        }
 
+            if($this->model->updateUserData($userId, $userFullName, $userLogin, $userEmail, $userRole)) {
+                echo json_encode(array("success" => true, "text" => "Данные пользователя обновлены"));
+            } else{
+                echo json_encode(array("success" => false, "text" => "Ошибка сохранения"));
+            }
+
+        } else {
+            echo json_encode(array("success" => false, "text" => "Заполните все поля"));
+        }
     }
 
     public function deleteUser() {
